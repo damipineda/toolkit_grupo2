@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <!-- Vista de formulario que incluye el texto extraído -->
+        <record id="view_toolkin_form_with_text" model="ir.ui.view">
+            <field name="name">toolkin.form.with.text</field>
+            <field name="model">toolkin</field>
+            <field name="arch" type="xml">
+                <form string="Toolkit">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="file_type"/>
+                            <field name="file_data" filename="name"/>
+                            <field name="document_processed"/>
+                            <field name="processing_log" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="extracted_text" readonly="1" widget="text"/>
+                        </group>
+                        <footer>
+                            <button name="process_document" type="object" string="Procesar Documento" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para abrir la vista previa -->
+        <record id="action_toolkin_data_preview" model="ir.actions.act_window">
+            <field name="name">Vista Previa de Texto Extraído</field>
+            <field name="res_model">toolkin</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_toolkin_form_with_text"/>
+            <field name="target">current</field>
+        </record>
+
+        <!-- Menú para acceder a la vista previa -->
+        <menuitem id="menu_toolkin_data_preview" name="Texto Extraído"
+                  parent="toolkin_menu_root" action="action_toolkin_data_preview"/>
+    </data>
+</odoo>

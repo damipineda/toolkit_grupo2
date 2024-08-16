@@ -1,0 +1,57 @@
+<odoo>
+  <data>
+    <!-- Vista de lista explícita -->
+
+    <record model="ir.ui.view" id="toolkin_list_view">
+      <field name="name">toolkin list</field>
+      <field name="model">toolkin</field> <!-- Cambié toolktin.toolktin a toolkin -->
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <!-- Si los campos value y value2 no existen en el modelo, elimínalos o define campos válidos -->
+          <field name="file_type"/> <!-- Ejemplo de un campo que sí existe en tu modelo -->
+          <field name="document_processed"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Acciones para abrir vistas en modelos -->
+
+    <record model="ir.actions.act_window" id="toolkin_action_window">
+      <field name="name">toolkin window</field>
+      <field name="res_model">toolkin</field> <!-- Cambié toolktin.toolktin a toolkin -->
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción del servidor asociada a la anterior -->
+    <record model="ir.actions.server" id="toolkin_action_server">
+      <field name="name">toolkin server</field>
+      <field name="model_id" ref="model_toolkin"/> <!-- Cambié model_toolktin_toolktin a model_toolkin -->
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+    <!-- Elemento de menú principal -->
+
+    <menuitem name="toolkin" id="toolkin_menu_root"/> <!-- Cambié toolktin.menu_root a toolkin_menu_root -->
+
+    <!-- Categorías de menú -->
+    <!--
+    <menuitem id="menu_toolkit_dashboard" name="Dashboard" parent="toolkin_menu_root" action="toolkit_dashboard" sequence="10"/> -->
+    <menuitem name="Menu 1" id="toolkin_menu_1" parent="toolkin_menu_root"/>
+    <menuitem name="Menu 2" id="toolkin_menu_2" parent="toolkin_menu_root"/>
+
+    <!-- Acciones -->
+
+    <menuitem name="List" id="toolkin_menu_1_list" parent="toolkin_menu_1"
+              action="toolkin_action_window"/>
+    <menuitem name="Server to list" id="toolkin_menu_2_list" parent="toolkin_menu_2"
+              action="toolkin_action_server"/> <!-- Cambié el id a toolkin_menu_2_list -->
+  </data>
+</odoo>
